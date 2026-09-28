@@ -29,7 +29,7 @@ $total_projects = count($projects);
     <header class="site-header">
         <div class="container">
             <div class="header-inner">
-                <a href="index.php" class="brand-logo">
+                <a href="./" class="brand-logo">
                     <div class="logo-symbol">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
