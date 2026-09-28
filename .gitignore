@@ -1,0 +1,4 @@
+# Temporary and environment files
+.DS_Store
+Thumbs.db
+*.log
