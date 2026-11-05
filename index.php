@@ -20,10 +20,12 @@ $total_projects = count($projects);
     <meta property="og:description" content="Showcase 9 dự án tiêu biểu với hình ảnh thực tế và phong cách 3D cinematic sáng tạo.">
     <meta property="og:type" content="website">
     
-    <!-- Google Fonts -->
+    <!-- Performance Preconnect & Optimized Fonts -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Outfit:wght@700;800&family=Plus+Jakarta+Sans:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="assets/css/style.css">
@@ -141,7 +143,10 @@ $total_projects = count($projects);
                         <img src="<?= htmlspecialchars($imagePath) ?>" 
                              alt="<?= htmlspecialchars($p['name']) ?>" 
                              class="card-screenshot-img" 
-                             loading="lazy">
+                             width="800"
+                             height="500"
+                             decoding="async"
+                             <?= $idx < 2 ? 'fetchpriority="high"' : 'loading="lazy"' ?>>
 
                         <!-- Top Bar inside Mockup -->
                         <div class="banner-top-bar">
@@ -255,7 +260,10 @@ $total_projects = count($projects);
                         <img src="<?= htmlspecialchars($imagePath) ?>" 
                              alt="<?= htmlspecialchars($p['name']) ?>" 
                              class="card-screenshot-img" 
-                             loading="lazy">
+                             width="800"
+                             height="500"
+                             decoding="async"
+                             <?= $idx < 2 ? 'fetchpriority="high"' : 'loading="lazy"' ?>>
                     </div>
 
                     <div class="bento-body">
@@ -502,6 +510,6 @@ $total_projects = count($projects);
 
 
     <!-- ================= SCRIPTS ================= -->
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js" defer></script>
 </body>
 </html>
