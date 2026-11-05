@@ -440,8 +440,32 @@ document.addEventListener('DOMContentLoaded', () => {
         modalTech.textContent = cardData.tech || 'Web Architecture, UI/UX';
         modalNote.textContent = cardData.note;
 
+        let displayDomain = cardData.url || '';
+        try {
+            displayDomain = new URL(cardData.url).hostname;
+        } catch(e) {
+            displayDomain = cardData.url.replace(/https?:\/\//, '').split('/')[0];
+        }
+
         modalVisual.innerHTML = `
-            <img src="${cardData.image}" alt="${cardData.name}">
+            <div class="modal-mockup-bar">
+                <div class="modal-mockup-dots">
+                    <span class="control-dot red"></span>
+                    <span class="control-dot yellow"></span>
+                    <span class="control-dot green"></span>
+                </div>
+                <div class="modal-mockup-url">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 5px; vertical-align: middle;">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    <span>${displayDomain}</span>
+                </div>
+                <div style="width: 42px;"></div>
+            </div>
+            <div class="modal-img-container">
+                <img src="${cardData.image}" alt="${cardData.name}" loading="eager">
+            </div>
         `;
 
         modalBtnLaunch.href = cardData.url;
