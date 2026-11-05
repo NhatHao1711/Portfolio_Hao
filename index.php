@@ -28,7 +28,7 @@ $total_projects = count($projects);
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Outfit:wght@700;800&family=Plus+Jakarta+Sans:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=2.2">
 </head>
 <body>
 
@@ -526,6 +526,6 @@ $total_projects = count($projects);
 
 
     <!-- ================= SCRIPTS ================= -->
-    <script src="assets/js/main.js" defer></script>
+    <script src="assets/js/main.js?v=2.2" defer></script>
 </body>
 </html>
