@@ -1492,6 +1492,7 @@ textarea.form-control {
 
 .modal-visual-preview {
     width: 100%;
+    flex-shrink: 0;
     border-radius: var(--radius-md);
     position: relative;
     overflow: hidden;
@@ -1538,6 +1539,7 @@ textarea.form-control {
 .modal-img-container {
     width: 100%;
     height: auto;
+    flex-shrink: 0;
     background-color: #08080a;
     display: block;
 }
@@ -1550,6 +1552,7 @@ textarea.form-control {
 }
 
 .modal-info-grid {
+    flex-shrink: 0;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
