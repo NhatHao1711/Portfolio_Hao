@@ -158,6 +158,15 @@ $total_projects = count($projects);
                             </div>
                         </div>
 
+                        <!-- Hover Inspect Hint -->
+                        <div class="card-inspect-hint">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            <span>XEM CHI TIẾT</span>
+                        </div>
+
                         <!-- Bottom Numbers inside Mockup -->
                         <div class="banner-bottom-meta">
                             <span class="banner-index-num"><?= $indexFormatted ?></span>
@@ -264,6 +273,13 @@ $total_projects = count($projects);
                              height="500"
                              decoding="async"
                              <?= $idx < 2 ? 'fetchpriority="high"' : 'loading="lazy"' ?>>
+                        <div class="card-inspect-hint">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            <span>XEM CHI TIẾT</span>
+                        </div>
                     </div>
 
                     <div class="bento-body">

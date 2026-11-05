@@ -315,6 +315,29 @@ html, body {
     z-index: 10;
 }
 
+/* Grid View Active State */
+html.is-grid-mode,
+body.is-grid-mode {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+}
+
+.main-stage-wrapper.is-grid-mode {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-y: visible !important;
+    overflow-x: hidden !important;
+    display: block !important;
+    justify-content: flex-start !important;
+}
+
+.main-stage-wrapper.is-grid-mode .grid-stage {
+    display: block !important;
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
 /* Stage Header Title & Meta */
 .stage-meta {
     position: absolute;
@@ -349,16 +372,19 @@ html, body {
 
 /* View Mode Switcher on Stage */
 .stage-view-toggle {
-    position: absolute;
-    top: 96px;
+    position: fixed;
+    top: 92px;
     right: 40px;
     display: flex;
     align-items: center;
-    background: rgba(18, 18, 24, 0.85);
+    background: rgba(14, 14, 18, 0.88);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-full);
     padding: 4px;
-    z-index: 20;
+    z-index: 100;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
 }
 
 .toggle-opt {
@@ -429,7 +455,7 @@ html, body {
 .stage-card.is-active {
     border-color: rgba(255, 255, 255, 0.35);
     box-shadow: 0 35px 85px -18px rgba(0, 0, 0, 0.95), 0 0 40px rgba(var(--ambient-rgb), 0.22);
-    cursor: default;
+    cursor: pointer;
 }
 
 /* Card Visual Mockup Banner (Screenshot Image Container) */
@@ -443,6 +469,44 @@ html, body {
     justify-content: space-between;
     padding: 18px 20px;
     background-color: #0d0d12;
+    cursor: pointer;
+}
+
+/* Card Inspect Hover Hint */
+.card-inspect-hint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    padding: 8px 18px;
+    background: rgba(8, 8, 12, 0.84);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: var(--radius-full);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s var(--ease-out-expo);
+    z-index: 5;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.bento-card:hover .card-inspect-hint {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.stage-card.is-active:hover .card-inspect-hint {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 /* Actual Screenshot Image */
@@ -828,7 +892,7 @@ html, body {
     width: 100%;
     max-width: 1360px;
     margin: 0 auto;
-    padding: 140px 40px 80px;
+    padding: 170px 40px 100px;
     z-index: 15;
     opacity: 0;
     transform: translateY(20px);
@@ -931,6 +995,8 @@ html, body {
     display: flex;
     flex-direction: column;
     transition: var(--transition-smooth);
+    cursor: pointer;
+    position: relative;
 }
 
 .bento-card:hover {

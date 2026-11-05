@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Click on neighbor card brings it to center smoothly
+    // Click on neighbor card brings it to center; clicking active card opens modal
     stageCards.forEach((card, i) => {
         card.addEventListener('click', (e) => {
             if (e.target.closest('a, button, .btn-launch, .btn-icon-square')) return;
@@ -297,6 +297,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (Math.abs(d) > 0.1) {
                 targetPos = Math.round(targetPos) + d;
                 playSound('click');
+            } else {
+                // Active center card: open project detail modal
+                const data = getCardData(card);
+                if (data) openModalWithData(data);
             }
         });
     });
@@ -346,6 +350,12 @@ document.addEventListener('DOMContentLoaded', () => {
             carouselStage.style.display = 'flex';
             if (stageControls) stageControls.style.display = 'flex';
             gridStage.classList.remove('is-active-view');
+
+            document.body.classList.remove('is-grid-mode');
+            document.documentElement.classList.remove('is-grid-mode');
+            document.querySelector('.main-stage-wrapper')?.classList.remove('is-grid-mode');
+            window.scrollTo({ top: 0, behavior: 'instant' });
+
             playSound('click');
         });
 
@@ -356,6 +366,11 @@ document.addEventListener('DOMContentLoaded', () => {
             carouselStage.style.display = 'none';
             if (stageControls) stageControls.style.display = 'none';
             gridStage.classList.add('is-active-view');
+
+            document.body.classList.add('is-grid-mode');
+            document.documentElement.classList.add('is-grid-mode');
+            document.querySelector('.main-stage-wrapper')?.classList.add('is-grid-mode');
+
             playSound('click');
         });
     }
@@ -448,26 +463,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Trigger Modal from card "inspect" button
-    document.querySelectorAll('.btn-inspect').forEach(btn => {
+    // Helper to safely extract project attributes from a card element
+    function getCardData(card) {
+        if (!card) return null;
+        return {
+            name: card.dataset.name || '',
+            category: card.dataset.category || '',
+            client: card.dataset.client || '',
+            type: card.dataset.type || '',
+            year: card.dataset.year || '2024',
+            tech: card.dataset.tech || 'Web Architecture, UI/UX',
+            note: card.dataset.note || '',
+            url: card.dataset.url || '#',
+            accent: card.dataset.accent || '#00f0ff',
+            gradient: card.dataset.gradient || '',
+            image: card.dataset.image || ''
+        };
+    }
+
+    // Trigger Modal from clicking Bento Card in Grid mode (excluding launch links)
+    document.querySelectorAll('.bento-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            if (e.target.closest('a, .btn-launch')) return;
+            const data = getCardData(card);
+            if (data) openModalWithData(data);
+        });
+    });
+
+    // Trigger Modal from any elements with .btn-inspect or .card-inspect-hint
+    document.querySelectorAll('.btn-inspect, .card-inspect-hint').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
             const card = btn.closest('.stage-card') || btn.closest('.bento-card');
             if (card) {
-                const data = {
-                    name: card.dataset.name,
-                    category: card.dataset.category,
-                    client: card.dataset.client,
-                    type: card.dataset.type,
-                    year: card.dataset.year,
-                    tech: card.dataset.tech,
-                    note: card.dataset.note,
-                    url: card.dataset.url,
-                    accent: card.dataset.accent,
-                    gradient: card.dataset.gradient,
-                    image: card.dataset.image
-                };
-                openModalWithData(data);
+                const data = getCardData(card);
+                if (data) openModalWithData(data);
             }
         });
     });
