@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ================= 1. STATE & DATA INITIALIZATION =================
     const stageCards = Array.from(document.querySelectorAll('.stage-card'));
     const totalProjects = stageCards.length;
-    
+
     // Virtual Scroll Physics Engine
     let currentPos = 0;       // Current interpolated position (float)
     let targetPos = 0;        // Target position driven by wheel / buttons (float)
@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const transZ = -Math.pow(absDiff, 1.35) * depthFactor;
             const rotY = -diff * rotFactor;
             const scale = Math.max(0.45, 1 - absDiff * 0.15);
-            
+
             // Continuous opacity curve
             let opacity = 1;
             if (absDiff > 0.4) {
@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
     stageCards.forEach((card, i) => {
         card.addEventListener('click', (e) => {
             if (e.target.closest('a, button, .btn-launch, .btn-icon-square')) return;
-            
+
             let d = i - (Math.round(targetPos) % totalProjects);
             while (d > totalProjects / 2) d -= totalProjects;
             while (d < -totalProjects / 2) d += totalProjects;
@@ -440,12 +440,15 @@ document.addEventListener('DOMContentLoaded', () => {
         modalTech.textContent = cardData.tech || 'Web Architecture, UI/UX';
         modalNote.textContent = cardData.note;
 
-        let displayDomain = cardData.url || '';
-        try {
-            displayDomain = new URL(cardData.url).hostname;
-        } catch(e) {
-            displayDomain = cardData.url.replace(/https?:\/\//, '').split('/')[0];
+        let displayDomain = cardData.domain || '';
+        if (!displayDomain && cardData.url) {
+            try {
+                displayDomain = new URL(cardData.url).hostname;
+            } catch (e) {
+                displayDomain = cardData.url.replace(/https?:\/\//, '').split('/')[0];
+            }
         }
+        if (!displayDomain) displayDomain = cardData.category || 'Dự án';
 
         const imgBlock = cardData.image ? `
             <div class="modal-img-container">
@@ -477,8 +480,23 @@ document.addEventListener('DOMContentLoaded', () => {
             ${imgBlock}
         `;
 
-        modalBtnLaunch.href = cardData.url;
-        modalBtnCopy.dataset.url = cardData.url;
+        const modalFooter = document.querySelector('.modal-footer');
+        const hasLiveLink = cardData.hasLink === 'true' && cardData.url && cardData.url !== '#' && cardData.url !== '';
+
+        if (hasLiveLink) {
+            if (modalFooter) modalFooter.style.display = 'flex';
+            if (modalBtnLaunch) {
+                modalBtnLaunch.style.display = 'inline-flex';
+                modalBtnLaunch.href = cardData.url;
+            }
+            if (modalBtnCopy) {
+                modalBtnCopy.style.display = 'inline-flex';
+                modalBtnCopy.dataset.url = cardData.url;
+            }
+        } else {
+            // Remove the link buttons as requested by user
+            if (modalFooter) modalFooter.style.display = 'none';
+        }
 
         modalBackdrop.classList.add('is-open');
         playSound('click');
@@ -502,12 +520,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return {
             name: card.dataset.name || '',
             category: card.dataset.category || '',
+            domain: card.dataset.domain || '',
+            hasLink: card.dataset.hasLink || 'true',
             client: card.dataset.client || '',
             type: card.dataset.type || '',
             year: card.dataset.year || '2024',
             tech: card.dataset.tech || 'Web Architecture, UI/UX',
             note: card.dataset.note || '',
-            url: card.dataset.url || '#',
+            url: card.dataset.url || '',
             accent: card.dataset.accent || '#00f0ff',
             gradient: card.dataset.gradient || '',
             image: card.dataset.image || ''
@@ -523,8 +543,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Trigger Modal from any elements with .btn-inspect or .card-inspect-hint
-    document.querySelectorAll('.btn-inspect, .card-inspect-hint').forEach(btn => {
+    // Trigger Modal from any elements with .btn-inspect, .card-inspect-hint, or .btn-inspect-trigger
+    document.querySelectorAll('.btn-inspect, .card-inspect-hint, .btn-inspect-trigger').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
             const card = btn.closest('.stage-card') || btn.closest('.bento-card');
@@ -618,29 +638,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'POST',
                 body: formData
             })
-            .then(res => res.json())
-            .then(data => {
-                submitBtn.disabled = false;
-                submitBtn.textContent = origText;
-                if (data.success) {
-                    contactFeedback.style.display = 'block';
-                    contactFeedback.style.color = '#10b981';
-                    contactFeedback.textContent = data.message;
-                    contactForm.reset();
-                    showToast('Cảm ơn bạn! Tin nhắn đã được gửi thành công.');
-                } else {
+                .then(res => res.json())
+                .then(data => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = origText;
+                    if (data.success) {
+                        contactFeedback.style.display = 'block';
+                        contactFeedback.style.color = '#10b981';
+                        contactFeedback.textContent = data.message;
+                        contactForm.reset();
+                        showToast('Cảm ơn bạn! Tin nhắn đã được gửi thành công.');
+                    } else {
+                        contactFeedback.style.display = 'block';
+                        contactFeedback.style.color = '#ef4444';
+                        contactFeedback.textContent = data.message || 'Có lỗi xảy ra, vui lòng thử lại.';
+                    }
+                })
+                .catch(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = origText;
                     contactFeedback.style.display = 'block';
                     contactFeedback.style.color = '#ef4444';
-                    contactFeedback.textContent = data.message || 'Có lỗi xảy ra, vui lòng thử lại.';
-                }
-            })
-            .catch(() => {
-                submitBtn.disabled = false;
-                submitBtn.textContent = origText;
-                contactFeedback.style.display = 'block';
-                contactFeedback.style.color = '#ef4444';
-                contactFeedback.textContent = 'Lỗi kết nối máy chủ, vui lòng thử lại sau.';
-            });
+                    contactFeedback.textContent = 'Lỗi kết nối máy chủ, vui lòng thử lại sau.';
+                });
         });
     }
 

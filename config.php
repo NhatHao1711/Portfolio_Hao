@@ -214,7 +214,9 @@ $default_projects = [
         'name' => 'Trivent',
         'category' => 'Đồ án tốt nghiệp',
         'group_tag' => 'graduation',
-        'url' => 'https://github.com/NhatHao1711/HeThongQuanLyVeVaSuKien',
+        'url' => '',
+        'domain_label' => 'Đồ án tốt nghiệp',
+        'has_live_link' => false,
         'type' => 'Fullstack Event & Ticketing Platform',
         'client' => 'Đại học HUTECH (Đồ án tốt nghiệp)',
         'note' => 'Hệ thống quản lý sự kiện & đặt vé online toàn diện dành cho sinh viên. Tích hợp đặt vé realtime chống overselling với Redis Distributed Lock, xử lý hàng đợi bất đồng bộ RabbitMQ, thanh toán trực tuyến, soát vé tự động bằng QR Code và đóng gói Docker container hóa.',
@@ -223,15 +225,15 @@ $default_projects = [
         'tech' => 'Spring Boot 3, Next.js 16, MySQL, Redis, RabbitMQ, Docker',
         'year' => '2026',
         'accent' => '#00f0ff',
-        'gradient' => 'linear-gradient(135deg, #1e3a8a 0%, #0d9488 50%, #0284c7 100%)',
-        'image' => ''
+        'gradient' => 'linear-gradient(135deg, #064e3b 0%, #0d9488 50%, #0284c7 100%)',
+        'image' => 'assets/images/projects/project_10.jpg'
     ]
 ];
 
 // Synchronize projects table in MySQL
 if ($db_connected && $conn) {
     $conn->query("UPDATE `projects` SET `url` = 'https://daugoi.dokhop.com/' WHERE `id` = 3");
-    $conn->query("UPDATE `projects` SET `image` = '' WHERE `id` = 10");
+    $conn->query("UPDATE `projects` SET `image` = 'assets/images/projects/project_10.jpg', `url` = '' WHERE `id` = 10");
     $res = $conn->query("SELECT COUNT(*) as cnt FROM `projects`");
     $row = $res ? $res->fetch_assoc() : ['cnt' => 0];
     if ($row['cnt'] != count($default_projects)) {

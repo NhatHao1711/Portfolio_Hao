@@ -28,7 +28,7 @@ $total_projects = count($projects);
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Outfit:wght@700;800&family=Plus+Jakarta+Sans:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="assets/css/style.css?v=2.5">
+    <link rel="stylesheet" href="assets/css/style.css?v=2.6">
 </head>
 <body>
 
@@ -116,8 +116,10 @@ $total_projects = count($projects);
             <div class="carousel-track" id="carouselTrack">
                 <?php foreach ($projects as $idx => $p): 
                     $indexFormatted = str_pad($idx + 1, 2, '0', STR_PAD_LEFT);
-                    $domain = parse_url($p['url'], PHP_URL_HOST);
+                    $domain = !empty($p['domain_label']) ? $p['domain_label'] : parse_url($p['url'], PHP_URL_HOST);
                     if (!$domain) $domain = str_replace(['https://', 'http://', '/'], '', $p['url']);
+                    if (!$domain) $domain = $p['category'] ?? 'Project';
+                    $hasLiveLink = !empty($p['url']) && ($p['has_live_link'] ?? true);
                     $accentColor = $p['accent'] ?? '#00f0ff';
                     $bgGradient = $p['gradient'] ?? 'linear-gradient(135deg, #09090b, #18181b)';
                     $imagePath = !empty($p['image']) ? $p['image'] : '';
@@ -127,6 +129,8 @@ $total_projects = count($projects);
                          data-index="<?= $idx ?>"
                          data-name="<?= htmlspecialchars($p['name']) ?>"
                          data-category="<?= htmlspecialchars($p['category']) ?>"
+                         data-domain="<?= htmlspecialchars($domain) ?>"
+                         data-has-link="<?= $hasLiveLink ? 'true' : 'false' ?>"
                          data-group="<?= htmlspecialchars($p['group_tag']) ?>"
                          data-client="<?= htmlspecialchars($p['client']) ?>"
                          data-type="<?= htmlspecialchars($p['type']) ?>"
@@ -189,6 +193,7 @@ $total_projects = count($projects);
 
                         <!-- Card Action Buttons -->
                         <div class="card-action-bar">
+                            <?php if ($hasLiveLink): ?>
                             <a href="<?= htmlspecialchars($p['url']) ?>" 
                                target="_blank" 
                                rel="noopener noreferrer" 
@@ -200,6 +205,15 @@ $total_projects = count($projects);
                                     <polyline points="7 7 17 7 17 17"></polyline>
                                 </svg>
                             </a>
+                            <?php else: ?>
+                            <button type="button" class="btn-launch btn-inspect-trigger" style="background: rgba(255, 255, 255, 0.08); color: #fff; border: 1px solid var(--border-subtle); box-shadow: none;">
+                                <span>XEM CHI TIẾT ĐỒ ÁN</span>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                            </button>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </article>
@@ -254,6 +268,10 @@ $total_projects = count($projects);
 
             <div class="bento-projects-grid">
                 <?php foreach ($projects as $idx => $p): 
+                    $domainBento = !empty($p['domain_label']) ? $p['domain_label'] : parse_url($p['url'], PHP_URL_HOST);
+                    if (!$domainBento) $domainBento = str_replace(['https://', 'http://', '/'], '', $p['url']);
+                    if (!$domainBento) $domainBento = $p['category'] ?? 'Project';
+                    $hasLiveLinkBento = !empty($p['url']) && ($p['has_live_link'] ?? true);
                     $accentColor = $p['accent'] ?? '#00f0ff';
                     $bgGradient = $p['gradient'] ?? 'linear-gradient(135deg, #09090b, #18181b)';
                     $imagePath = !empty($p['image']) ? $p['image'] : '';
@@ -261,6 +279,8 @@ $total_projects = count($projects);
                 <div class="bento-card"
                      data-name="<?= htmlspecialchars($p['name']) ?>"
                      data-category="<?= htmlspecialchars($p['category']) ?>"
+                     data-domain="<?= htmlspecialchars($domainBento) ?>"
+                     data-has-link="<?= $hasLiveLinkBento ? 'true' : 'false' ?>"
                      data-group="<?= htmlspecialchars($p['group_tag']) ?>"
                      data-client="<?= htmlspecialchars($p['client']) ?>"
                      data-type="<?= htmlspecialchars($p['type']) ?>"
@@ -303,6 +323,7 @@ $total_projects = count($projects);
                         </div>
 
                         <div class="card-action-bar" style="margin-top: 14px;">
+                            <?php if ($hasLiveLinkBento): ?>
                             <a href="<?= htmlspecialchars($p['url']) ?>" target="_blank" rel="noopener noreferrer" class="btn-launch">
                                 <span>TRUY CẬP WEBSITE</span>
                                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -310,6 +331,15 @@ $total_projects = count($projects);
                                     <polyline points="7 7 17 7 17 17"></polyline>
                                 </svg>
                             </a>
+                            <?php else: ?>
+                            <button type="button" class="btn-launch btn-inspect-trigger" style="background: rgba(255, 255, 255, 0.08); color: #fff; border: 1px solid var(--border-subtle); box-shadow: none;">
+                                <span>XEM CHI TIẾT ĐỒ ÁN</span>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                            </button>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -540,6 +570,6 @@ $total_projects = count($projects);
 
 
     <!-- ================= SCRIPTS ================= -->
-    <script src="assets/js/main.js?v=2.5" defer></script>
+    <script src="assets/js/main.js?v=2.6" defer></script>
 </body>
 </html>
