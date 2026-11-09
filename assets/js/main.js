@@ -447,6 +447,17 @@ document.addEventListener('DOMContentLoaded', () => {
             displayDomain = cardData.url.replace(/https?:\/\//, '').split('/')[0];
         }
 
+        const imgBlock = cardData.image ? `
+            <div class="modal-img-container">
+                <img src="${cardData.image}" alt="${cardData.name}" loading="eager">
+            </div>
+        ` : `
+            <div class="modal-img-container" style="min-height: 240px; background: ${cardData.gradient || '#0b0b10'}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;">
+                <span style="font-family: 'Space Grotesk', sans-serif; font-size: 34px; font-weight: 800; letter-spacing: 0.12em; color: #fff; text-shadow: 0 4px 20px rgba(0,0,0,0.6);">${cardData.name}</span>
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--accent-cyan); text-transform: uppercase;">// ${cardData.category}</span>
+            </div>
+        `;
+
         modalVisual.innerHTML = `
             <div class="modal-mockup-bar">
                 <div class="modal-mockup-dots">
@@ -463,9 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div style="width: 42px;"></div>
             </div>
-            <div class="modal-img-container">
-                <img src="${cardData.image}" alt="${cardData.name}" loading="eager">
-            </div>
+            ${imgBlock}
         `;
 
         modalBtnLaunch.href = cardData.url;

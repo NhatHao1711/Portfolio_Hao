@@ -224,13 +224,14 @@ $default_projects = [
         'year' => '2026',
         'accent' => '#00f0ff',
         'gradient' => 'linear-gradient(135deg, #1e3a8a 0%, #0d9488 50%, #0284c7 100%)',
-        'image' => 'assets/images/projects/project_10.jpg'
+        'image' => ''
     ]
 ];
 
 // Synchronize projects table in MySQL
 if ($db_connected && $conn) {
     $conn->query("UPDATE `projects` SET `url` = 'https://daugoi.dokhop.com/' WHERE `id` = 3");
+    $conn->query("UPDATE `projects` SET `image` = '' WHERE `id` = 10");
     $res = $conn->query("SELECT COUNT(*) as cnt FROM `projects`");
     $row = $res ? $res->fetch_assoc() : ['cnt' => 0];
     if ($row['cnt'] != count($default_projects)) {

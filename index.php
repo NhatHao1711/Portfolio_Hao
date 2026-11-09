@@ -28,7 +28,7 @@ $total_projects = count($projects);
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Outfit:wght@700;800&family=Plus+Jakarta+Sans:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="assets/css/style.css?v=2.4">
+    <link rel="stylesheet" href="assets/css/style.css?v=2.5">
 </head>
 <body>
 
@@ -120,7 +120,7 @@ $total_projects = count($projects);
                     if (!$domain) $domain = str_replace(['https://', 'http://', '/'], '', $p['url']);
                     $accentColor = $p['accent'] ?? '#00f0ff';
                     $bgGradient = $p['gradient'] ?? 'linear-gradient(135deg, #09090b, #18181b)';
-                    $imagePath = $p['image'] ?? ('assets/images/projects/project_' . $p['id'] . '.jpg');
+                    $imagePath = !empty($p['image']) ? $p['image'] : '';
                 ?>
                 <article class="stage-card" 
                          id="card-<?= $idx ?>"
@@ -139,7 +139,8 @@ $total_projects = count($projects);
                          data-image="<?= htmlspecialchars($imagePath) ?>">
                     
                     <!-- Visual Mockup Top Banner with Screenshot -->
-                    <div class="card-visual-banner">
+                    <div class="card-visual-banner" style="<?= empty($imagePath) ? 'background: ' . htmlspecialchars($bgGradient) . ';' : '' ?>">
+                        <?php if (!empty($imagePath)): ?>
                         <img src="<?= htmlspecialchars($imagePath) ?>" 
                              alt="<?= htmlspecialchars($p['name']) ?>" 
                              class="card-screenshot-img" 
@@ -147,6 +148,12 @@ $total_projects = count($projects);
                              height="500"
                              decoding="async"
                              <?= $idx < 2 ? 'fetchpriority="high"' : 'loading="lazy"' ?>>
+                        <?php else: ?>
+                        <div class="card-placeholder-banner" style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1;">
+                            <span style="font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 800; letter-spacing: 0.12em; color: #fff; text-shadow: 0 4px 20px rgba(0,0,0,0.6);"><?= htmlspecialchars($p['name']) ?></span>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--accent-cyan); margin-top: 8px; text-transform: uppercase;">// <?= htmlspecialchars($p['category']) ?></span>
+                        </div>
+                        <?php endif; ?>
 
                         <!-- Top Bar inside Mockup -->
                         <div class="banner-top-bar">
@@ -249,7 +256,7 @@ $total_projects = count($projects);
                 <?php foreach ($projects as $idx => $p): 
                     $accentColor = $p['accent'] ?? '#00f0ff';
                     $bgGradient = $p['gradient'] ?? 'linear-gradient(135deg, #09090b, #18181b)';
-                    $imagePath = $p['image'] ?? ('assets/images/projects/project_' . $p['id'] . '.jpg');
+                    $imagePath = !empty($p['image']) ? $p['image'] : '';
                 ?>
                 <div class="bento-card"
                      data-name="<?= htmlspecialchars($p['name']) ?>"
@@ -265,7 +272,8 @@ $total_projects = count($projects);
                      data-gradient="<?= htmlspecialchars($bgGradient) ?>"
                      data-image="<?= htmlspecialchars($imagePath) ?>">
                     
-                    <div class="bento-visual">
+                    <div class="bento-visual" style="<?= empty($imagePath) ? 'background: ' . htmlspecialchars($bgGradient) . ';' : '' ?>">
+                        <?php if (!empty($imagePath)): ?>
                         <img src="<?= htmlspecialchars($imagePath) ?>" 
                              alt="<?= htmlspecialchars($p['name']) ?>" 
                              class="card-screenshot-img" 
@@ -273,6 +281,12 @@ $total_projects = count($projects);
                              height="500"
                              decoding="async"
                              <?= $idx < 2 ? 'fetchpriority="high"' : 'loading="lazy"' ?>>
+                        <?php else: ?>
+                        <div class="card-placeholder-banner" style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1;">
+                            <span style="font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: 0.12em; color: #fff; text-shadow: 0 4px 20px rgba(0,0,0,0.6);"><?= htmlspecialchars($p['name']) ?></span>
+                            <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: var(--accent-cyan); margin-top: 6px; text-transform: uppercase;">// <?= htmlspecialchars($p['category']) ?></span>
+                        </div>
+                        <?php endif; ?>
                         <div class="card-inspect-hint">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -526,6 +540,6 @@ $total_projects = count($projects);
 
 
     <!-- ================= SCRIPTS ================= -->
-    <script src="assets/js/main.js?v=2.4" defer></script>
+    <script src="assets/js/main.js?v=2.5" defer></script>
 </body>
 </html>
