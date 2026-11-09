@@ -518,6 +518,7 @@ body.is-grid-mode {
     object-fit: cover;
     object-position: top center;
     z-index: 1;
+    image-rendering: -webkit-optimize-contrast;
     transition: transform 0.6s var(--ease-out-expo), filter 0.4s ease;
     filter: brightness(0.92) contrast(1.04);
 }
@@ -1549,6 +1550,7 @@ textarea.form-control {
     height: auto;
     display: block;
     object-fit: contain;
+    image-rendering: -webkit-optimize-contrast;
 }
 
 .modal-info-grid {
