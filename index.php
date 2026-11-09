@@ -17,7 +17,7 @@ $total_projects = count($projects);
     
     <!-- Open Graph -->
     <meta property="og:title" content="Trương Huy Nhật Hào — Web Developer">
-    <meta property="og:description" content="Showcase 9 dự án tiêu biểu với hình ảnh thực tế và phong cách 3D cinematic sáng tạo.">
+    <meta property="og:description" content="Showcase 10 dự án tiêu biểu với hình ảnh thực tế và phong cách 3D cinematic sáng tạo.">
     <meta property="og:type" content="website">
     
     <!-- Performance Preconnect & Optimized Fonts -->
@@ -28,7 +28,7 @@ $total_projects = count($projects);
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Outfit:wght@700;800&family=Plus+Jakarta+Sans:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="assets/css/style.css?v=2.3">
+    <link rel="stylesheet" href="assets/css/style.css?v=2.4">
 </head>
 <body>
 
@@ -526,6 +526,6 @@ $total_projects = count($projects);
 
 
     <!-- ================= SCRIPTS ================= -->
-    <script src="assets/js/main.js?v=2.3" defer></script>
+    <script src="assets/js/main.js?v=2.4" defer></script>
 </body>
 </html>

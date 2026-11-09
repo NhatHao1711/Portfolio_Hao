@@ -22,7 +22,7 @@ Giao diện Portfolio cá nhân của **Trương Huy Nhật Hào** (Web Develope
 - **Web Audio API Haptic Sound:** Âm thanh vi tương tác nhẹ nhàng (có nút Bật/Tắt).
 - **Dossier Drawer & Contact Form:** Ngăn kéo trượt hiển thị đầy đủ hồ sơ năng lực, lịch sử kinh nghiệm làm việc (MTSOLUTIONS, MMTeck, ITSTARVN) và form liên hệ AJAX.
 
-## 📁 9 dự án tiêu biểu
+## 📁 10 dự án tiêu biểu
 1. **An Giang Travel** (`https://angiangtravel.com`)
 2. **Hwatch (v2)** (`http://hwatch.vn`)
 3. **Độ Khớp** (`https://daugoi.dokhop.com/`)
@@ -32,3 +32,4 @@ Giao diện Portfolio cá nhân của **Trương Huy Nhật Hào** (Web Develope
 7. **Snack House** (`http://snackhouse.com.vn`)
 8. **Sebastian** (`https://sebastian.web1ngay.vn`)
 9. **GYLA Summer Camp** (`https://summer.gylaedu.vn/`)
+10. **Trivent** (Đồ án tốt nghiệp — `https://github.com/NhatHao1711/HeThongQuanLyVeVaSuKien`)

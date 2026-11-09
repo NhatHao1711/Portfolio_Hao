@@ -208,6 +208,23 @@ $default_projects = [
         'accent' => '#06b6d4',
         'gradient' => 'linear-gradient(135deg, #083344 0%, #0e7490 50%, #0891b2 100%)',
         'image' => 'assets/images/projects/project_9.jpg'
+    ],
+    [
+        'id' => 10,
+        'name' => 'Trivent',
+        'category' => 'Đồ án tốt nghiệp',
+        'group_tag' => 'graduation',
+        'url' => 'https://github.com/NhatHao1711/HeThongQuanLyVeVaSuKien',
+        'type' => 'Fullstack Event & Ticketing Platform',
+        'client' => 'Đại học HUTECH (Đồ án tốt nghiệp)',
+        'note' => 'Hệ thống quản lý sự kiện & đặt vé online toàn diện dành cho sinh viên. Tích hợp đặt vé realtime chống overselling với Redis Distributed Lock, xử lý hàng đợi bất đồng bộ RabbitMQ, thanh toán trực tuyến, soát vé tự động bằng QR Code và đóng gói Docker container hóa.',
+        'status' => 'Hoàn thành',
+        'badge' => 'Đồ án tốt nghiệp 🎓',
+        'tech' => 'Spring Boot 3, Next.js 16, MySQL, Redis, RabbitMQ, Docker',
+        'year' => '2026',
+        'accent' => '#00f0ff',
+        'gradient' => 'linear-gradient(135deg, #1e3a8a 0%, #0d9488 50%, #0284c7 100%)',
+        'image' => 'assets/images/projects/project_10.jpg'
     ]
 ];
 
